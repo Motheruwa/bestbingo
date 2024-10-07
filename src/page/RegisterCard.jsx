@@ -17,7 +17,10 @@ const RegisterCard = () => {
       setRegisteredNumbers(JSON.parse(storedNumbers));
     }
 
-    if (storedAmount) {
+    if (!storedAmount) {
+      setSelectedAmount(20);
+      localStorage.setItem('selectedAmount', '20');
+    } else {
       setSelectedAmount(parseInt(storedAmount, 10));
     }
 
