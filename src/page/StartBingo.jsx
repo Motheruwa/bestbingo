@@ -89,6 +89,17 @@ const StartBingo = () => {
     const remaining = totalAmount - deducted;
     setRemainingMoney(remaining);
   }, [registeredNumbers, selectedAmount, totalAmount]);
+  useEffect(() => {
+    const audio = new Audio(startAudio);
+    audio.load(); // Preload the audio
+
+    return () => {
+      // Clean up the audio element
+      audio.pause();
+      audio.removeAttribute('src');
+      audio.load();
+    };
+  }, []); // Empty dependency array to run only on mount
 
   const handleClick = () => {
     const audio = new Audio(startAudio);
@@ -122,14 +133,14 @@ const StartBingo = () => {
 
   return (
     <div className={styles.container}>
-    <div className={styles.link} onClickCapture={handleregisterClick}>registercard</div>
-    <div className={styles.card}>
-      <img src={BingoCard} alt="Bingo Card" />
+      <div className={styles.link} onClickCapture={handleregisterClick}>registercard</div>
+      <div className={styles.card}>
+        <img src={BingoCard} alt="Bingo Card" />
+      </div>
+      <button onClick={handleClick} disabled={registeredNumbers.length === 0} className={styles.button}>
+        Start
+      </button>
     </div>
-    <button onClick={handleClick} disabled={registeredNumbers.length === 0} className={styles.button}>
-      Start
-    </button>
-  </div>
   );
 };
 

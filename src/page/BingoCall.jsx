@@ -332,6 +332,12 @@ return () => clearTimeout(timeout);
 
     if (audio) {
       audio.play();
+  
+      // Pause the audio after 3 seconds
+      setTimeout(() => {
+        audio.pause();
+        audio.currentTime = 0; // Reset audio to the beginning
+      }, 3000); // Duration of 3 seconds
     }
   };
 
